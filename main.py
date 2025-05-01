@@ -1,16 +1,17 @@
 import numpy as np
 from State import State
+from utils.utils import heuristic
 
 
 matriz = np.array([
-    [1, 2, 3],
-    [0, 4, 6],
-    [7, 8, 1]
+    [2, 6, 3],
+    [4, 5, 1],
+    [7, 8, 0]
 ])
 
 st = State(matriz)
 
 nb = st.getNeighbors()
 
-for n in nb:
-    n.printState()
+# for n in nb:
+#     n.printState()

@@ -1,8 +1,10 @@
 import numpy as np
+from utils.utils import heuristic
 
 class State:
     def __init__(self, currentState):
         self.currentState = currentState
+        self.heuristic = heuristic(currentState)
  
     def printState(self):
         n = 3

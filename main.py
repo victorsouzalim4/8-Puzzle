@@ -2,6 +2,7 @@ import numpy as np
 from State import State
 from BFS import breadthFirstSearch
 from GBFS import greedyBestFirstSearch
+from aStarSearch import aStarSearch
 
 def printFormatted(str):
 
@@ -19,9 +20,9 @@ matriz = np.array([
 
 st = State(matriz)
 
-stack = greedyBestFirstSearch(st)
-print(len(stack))
+stack = aStarSearch(st)
+print(len(stack) - 1)
 
-while stack:
-    printFormatted(stack.pop())
-    print()
+# while stack:
+#     printFormatted(stack.pop())
+#     print()

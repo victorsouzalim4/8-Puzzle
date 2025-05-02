@@ -1,4 +1,15 @@
 import numpy as np
+from collections import deque
+
+def reconstructPath(initialKey, visitedList):
+    stack = deque()
+    currentKey = initialKey
+
+    while currentKey is not None:
+        stack.append(currentKey)
+        currentKey = visitedList[currentKey]
+
+    return stack
 
 def heuristic(matrix):
 

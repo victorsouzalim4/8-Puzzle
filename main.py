@@ -1,6 +1,7 @@
 import numpy as np
 from State import State
 from BFS import breadthFirstSearch
+from GBFS import greedyBestFirstSearch
 
 def printFormatted(str):
 
@@ -18,7 +19,8 @@ matriz = np.array([
 
 st = State(matriz)
 
-stack = breadthFirstSearch(st)
+stack = greedyBestFirstSearch(st)
+print(len(stack))
 
 while stack:
     printFormatted(stack.pop())

@@ -1,32 +1,26 @@
-from State import State
+import heapq
 from collections import deque
 from utils.utils import reconstructPath
 
-def breadthFirstSearch(initialState):
-
+def greedyBestFirstSearch(initialState):
     visited = {}
-    queue = deque()
+    heap = []
     predecessor = None
+    
+    heapq.heappush(heap, (initialState.heuristic, initialState))
 
-    queue.append(initialState)
     visited[initialState.fromMatrixString()] = predecessor
 
     
-    while queue:
-        current = queue.popleft()
+    while heap:
+        _, current = heapq.heappop(heap)
         predecessor = current
 
         if current.fromMatrixString() == '123456780':
             return reconstructPath("123456780", visited)
 
         for element in current.getNeighbors(): 
+            print("entrei")
             if element.fromMatrixString() not in visited:
-                queue.append(element)
+                heapq.heappush(heap, (element.heuristic, element))
                 visited[element.fromMatrixString()] = predecessor.fromMatrixString()
-
-
-
-    
-
-    
-

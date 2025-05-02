@@ -40,3 +40,6 @@ class State:
                 neighbours.append(State(newState))
 
         return neighbours
+    
+    def __lt__(self, other):
+        return self.fromMatrixString() < other.fromMatrixString()

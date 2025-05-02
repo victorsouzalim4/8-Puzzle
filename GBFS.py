@@ -1,8 +1,11 @@
 import heapq
 from collections import deque
 from utils.utils import reconstructPath
+import time
 
 def greedyBestFirstSearch(initialState):
+    startTime = time.perf_counter() 
+
     counter = 0
     visited = {}
     heap = []
@@ -18,8 +21,8 @@ def greedyBestFirstSearch(initialState):
         predecessor = current
 
         if current.fromMatrixString() == '123456780':
-            print(counter)
-            return reconstructPath("123456780", visited)
+            execTime = time.perf_counter() - startTime
+            return reconstructPath("123456780", visited), execTime, counter
 
         for element in current.getNeighbors(): 
             if element.fromMatrixString() not in visited:

@@ -20,8 +20,10 @@ matriz = np.array([
 
 st = State(matriz)
 
-stack = aStarSearch(st)
-print(len(stack) - 1)
+stack, execTime, expandedNodes = aStarSearch(st)
+print(f"Solution path lenght: {len(stack) - 1}")
+print(f"Execution time: {execTime:.4f}s")
+print(f"Number of visited states: {expandedNodes}")
 
 # while stack:
 #     printFormatted(stack.pop())

@@ -38,7 +38,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="C:\Users\victo\OneDrive\Documentos\FACULDADE\FACULDADE\4 semestre\Inteligencia Artificial\Lista9\Puzzle-8Pe-as\venv"
+VIRTUAL_ENV="C:\Users\Valle\OneDrive\Documentos\Puzzle\Puzzle-8Pe-as\venv"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"

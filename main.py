@@ -1,17 +1,25 @@
 import numpy as np
 from State import State
-from utils.utils import heuristic
+from BFS import breadthFirstSearch
+
+def printFormatted(str):
+
+    for i in range(9):
+        print(f"{str[i]} ", end = "")
+        if (i+1) % 3 == 0:
+            print()
 
 
 matriz = np.array([
-    [2, 6, 3],
-    [4, 5, 1],
-    [7, 8, 0]
+    [8, 6, 7],
+    [2, 5, 4],
+    [3, 0, 1]
 ])
 
 st = State(matriz)
 
-nb = st.getNeighbors()
+stack = breadthFirstSearch(st)
 
-# for n in nb:
-#     n.printState()
+while stack:
+    printFormatted(stack.pop())
+    print()

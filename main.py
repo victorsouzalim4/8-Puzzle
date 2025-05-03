@@ -1,30 +1,65 @@
 import numpy as np
-from State import State
-from BFS import breadthFirstSearch
-from GBFS import greedyBestFirstSearch
-from aStarSearch import aStarSearch
+from typing import List, Deque
 
-def printFormatted(str):
+from utils.state import State
+from algorithms.breadth_first_search import breadth_first_search
+from algorithms.greedy_search import greedy_best_first_search
+from algorithms.astar_search import astar_search
 
+
+def print_formatted(state_str: str) -> None:
+    """Imprime o estado do puzzle em formato de matriz 3x3.
+    
+    Args:
+        state_str: Representação do estado como string (ex: '123456780')
+    """
     for i in range(9):
-        print(f"{str[i]} ", end = "")
-        if (i+1) % 3 == 0:
-            print()
+        print(f"{state_str[i]} " if (i+1) % 3 == 0 else "\n", end="")
 
 
-matriz = np.array([
-    [8, 6, 7],
-    [2, 5, 4],
-    [3, 0, 1]
-])
+def run_and_print_results(algorithm_name: str, algorithm_fn, initial_state: State) -> None:
+    """Executa um algoritmo de busca e imprime os resultados.
+    
+    Args:
+        algorithm_name: Nome do algoritmo para exibição
+        algorithm_fn: Função do algoritmo a ser executada
+        initial_state: Estado inicial do puzzle
+    """
+    print(f"\n{'-'*50}")
+    print(f"Executando {algorithm_name}...")
+    print(f"{'-'*50}")
+    
+    path, exec_time, expanded_nodes = algorithm_fn(initial_state)
+    
+    print(f"Comprimento do caminho da solução: {len(path) - 1} movimentos")
+    print(f"Tempo de execução: {exec_time:.4f}s")
+    print(f"Número de estados expandidos: {expanded_nodes}")
+    
+    # Descomente para visualizar o caminho da solução
+    # print("\nCaminho da solução:")
+    # while path:
+    #     print_formatted(path.pop())
+    #     print()
 
-st = State(matriz)
 
-stack, execTime, expandedNodes = aStarSearch(st)
-print(f"Solution path lenght: {len(stack) - 1}")
-print(f"Execution time: {execTime:.4f}s")
-print(f"Number of visited states: {expandedNodes}")
+def main() -> None:
+    """Função principal que configura e executa os algoritmos de busca."""
+    # Estado inicial do puzzle
+    matriz = np.array([
+        [8, 6, 7],
+        [2, 5, 4],
+        [3, 1, 0]
+    ])
+    
+    initial_state = State(matriz)
+    print("Estado inicial:")
+    initial_state.print_state()
+    
+    # Executa os algoritmos de busca
+    run_and_print_results("Busca em Largura", breadth_first_search, initial_state)
+    run_and_print_results("Busca Gulosa", greedy_best_first_search, initial_state)
+    run_and_print_results("A*", astar_search, initial_state)
 
-# while stack:
-#     printFormatted(stack.pop())
-#     print()
+
+if __name__ == "__main__":
+    main()

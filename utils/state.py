@@ -10,8 +10,8 @@ class State:
     # Matriz objetivo para cálculo da heurística (constante da classe)
     GOAL_MATRIX = np.array([
         [1, 2, 3],
-        [8, 0, 4],
-        [7, 6, 5]
+        [4, 5, 6],
+        [7, 8, 0]
     ])
     
     # Dicionário para armazenar as posições dos elementos na matriz objetivo

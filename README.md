@@ -64,6 +64,12 @@ Com o ambiente ativado, execute o arquivo principal:
 python main.py
 ```
 
+### 6. Comando para geração do executavel
+
+```bash
+pyinstaller --onefile --noconsole --name Puzzle interface.py
+```
+
 ## 🛠️ Estrutura do Projeto
 
 ```
@@ -81,3 +87,10 @@ Puzzle-8Pe-as/
 
 - Não execute `main.py` diretamente com `main.py`, use `python main.py`.
 - Se mudar de máquina, sempre recrie o `venv`.
+
+## Integrantes
+
+- André Luiz Rocha Cabral
+- Douglas Nícolas Silva Gomes 
+- João Paulo Dias Estevão 
+- Victor Souza Lima

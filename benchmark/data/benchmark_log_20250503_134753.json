@@ -1,0 +1,36 @@
+{
+  "timestamp": "20250503_134753",
+  "results": [
+    {
+      "algorithm": "Busca em Largura",
+      "avg_time": 4.446891599989613,
+      "avg_nodes": 181439.0,
+      "path_lengths": [
+        31
+      ],
+      "avg_path_length": 31.0
+    },
+    {
+      "algorithm": "Busca Gulosa",
+      "avg_time": 0.0026137999957427382,
+      "avg_nodes": 160.0,
+      "path_lengths": [
+        47
+      ],
+      "avg_path_length": 47.0
+    },
+    {
+      "algorithm": "A*",
+      "avg_time": 0.5869243000051938,
+      "avg_nodes": 29756.0,
+      "path_lengths": [
+        31
+      ],
+      "avg_path_length": 31.0
+    }
+  ],
+  "metadata": {
+    "initial_state": "867254301",
+    "version": "original"
+  }
+}

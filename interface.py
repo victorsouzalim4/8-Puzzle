@@ -52,8 +52,8 @@ class PuzzleScientificInterface(tk.Tk):
         # Estado atual e histórico de estados do puzzle
         self.current_state = np.array([
             [1, 2, 3],
-            [8, 0, 4],
-            [7, 6, 5]
+            [4, 5, 6],
+            [7, 8, 0]
         ])
         self.state_history = []
         
@@ -226,14 +226,22 @@ class PuzzleScientificInterface(tk.Tk):
             elif algorithm == "Greedy":
                 algorithm_fn = greedy_best_first_search
                 algorithm_name = "Busca Gulosa"
-            else:  # A*
+            elif algorithm == "A*":  # A*
                 algorithm_fn = astar_search
-                algorithm_name = "A*"
+                algorithm_name = "A* - Manhattan"
+            else:
+                algorithm_fn = astar_search
+                algorithm_name = "A* - ManhattanPenality"
             
             # Executar o algoritmo
-            start_time = time.time()
-            path, exec_time, expanded_nodes = algorithm_fn(initial_state)
-            total_time = time.time() - start_time
+            if algorithm_name == "A* - ManhattanPenality":
+                start_time = time.time()
+                path, exec_time, expanded_nodes = algorithm_fn(initial_state, "heuristic2")
+                total_time = time.time() - start_time
+            else:
+                start_time = time.time()
+                path, exec_time, expanded_nodes = algorithm_fn(initial_state)
+                total_time = time.time() - start_time
             
             # Verificar se encontrou solução
             if not path:

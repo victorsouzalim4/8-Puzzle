@@ -7,7 +7,7 @@ from utils.priority_queue import PriorityQueue
 from utils.state import State, reconstruct_path
 
 
-def astar_search(initial_state: State) -> Tuple[Deque[str], float, int]:
+def astar_search(initial_state: State, heuristic = "heuristic") -> Tuple[Deque[str], float, int]:
     """Implementa o algoritmo A* para encontrar o caminho mais curto para o estado objetivo.
     
     O algoritmo A* combina a busca de melhor primeiro com uma heurística admissível
@@ -38,9 +38,16 @@ def astar_search(initial_state: State) -> Tuple[Deque[str], float, int]:
     
     # Dicionário para armazenar o custo g (custo real) para cada estado
     g_score: Dict[State, int] = {initial_state: 0}
+
+    # Selecionar heuristica desejada
+    if hasattr(initial_state, heuristic):
+        heuristic_attr = heuristic
+    else:
+        heuristic_attr = "heuristic"
     
     # Adiciona o estado inicial à fila de prioridade com f_score = h_score
-    open_set.push(initial_state, initial_state.heuristic)
+    heuristic_value = getattr(initial_state, heuristic_attr)
+    open_set.push(initial_state, heuristic_value)
 
     # Marca o estado inicial no dicionário de predecessores
     predecessors[initial_state.from_matrix_string()] = None
@@ -80,9 +87,12 @@ def astar_search(initial_state: State) -> Tuple[Deque[str], float, int]:
                 
                 # Atualiza o custo g para este vizinho
                 g_score[neighbor] = tentative_g
+
+                # Buscar o custo h para este vizinho
+                heuristic_value = getattr(neighbor, heuristic_attr)
                 
                 # Calcula o f_score (f = g + h)
-                f_score = tentative_g + neighbor.heuristic
+                f_score = tentative_g + heuristic_value
                 
                 # Atualiza o predecessor deste vizinho
                 predecessors[neighbor.from_matrix_string()] = current_str

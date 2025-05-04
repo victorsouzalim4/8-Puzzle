@@ -28,10 +28,11 @@ class State:
         self.current_state = current_state
         # Pré-calcula e armazena valores frequentemente usados
         self._string_repr = self._calculate_string_repr()
-        self.heuristic = self._calculate_heuristic()
+        self.heuristic = self._calculate_heuristic_manhattan()
+        self.heuristic2 = self._calculate_heuristic_manhattanPenality()
         self._hash = hash(self._string_repr)
         
-    def _calculate_heuristic(self) -> int:
+    def _calculate_heuristic_manhattan(self) -> int:
         """Calcula a heurística de distância Manhattan para o estado atual.
         
         Returns:
@@ -47,6 +48,55 @@ class State:
         
         return manhattan_dist_sum
     
+    def _calculate_heuristic_manhattanPenality(self) -> int:
+        """
+        Calcula a heurística de Manhattan com penalidade por conflitos lineares.
+        
+        Returns:
+            int: Valor heurístico (distância de Manhattan + penalidades)
+        """
+        manhattan_dist_sum = 0
+        linear_conflict_penalty = 0
+        board = self.current_state  # Supondo que seja uma matriz NumPy 3x3
+
+        # Calcula a distância Manhattan normal
+        for (row, col), value in np.ndenumerate(board):
+            if value != 0:  # Ignora espaço vazio
+                goal_row, goal_col = self.GOAL_POSITIONS[value]
+                manhattan_dist_sum += abs(goal_row - row) + abs(goal_col - col)
+
+        # Verifica conflitos lineares em linhas
+        for row in range(3):
+            current_row = board[row]
+            for i in range(3):
+                for j in range(i + 1, 3):
+                    val_i = current_row[i]
+                    val_j = current_row[j]
+                    if val_i != 0 and val_j != 0:
+                        # Ambas as peças devem estar nesta mesma linha na meta
+                        goal_row_i, goal_col_i = self.GOAL_POSITIONS[val_i]
+                        goal_row_j, goal_col_j = self.GOAL_POSITIONS[val_j]
+                        if goal_row_i == row and goal_row_j == row:
+                            # Se estão invertidas em relação à posição final, há conflito
+                            if goal_col_i > goal_col_j:
+                                linear_conflict_penalty += 2
+
+        # Verifica conflitos lineares em colunas
+        for col in range(3):
+            current_col = board[:, col]
+            for i in range(3):
+                for j in range(i + 1, 3):
+                    val_i = current_col[i]
+                    val_j = current_col[j]
+                    if val_i != 0 and val_j != 0:
+                        goal_row_i, goal_col_i = self.GOAL_POSITIONS[val_i]
+                        goal_row_j, goal_col_j = self.GOAL_POSITIONS[val_j]
+                        if goal_col_i == col and goal_col_j == col:
+                            if goal_row_i > goal_row_j:
+                                linear_conflict_penalty += 2
+
+        return manhattan_dist_sum + linear_conflict_penalty
+
     def _calculate_string_repr(self) -> str:
         """Calcula a representação em string do estado atual.
         

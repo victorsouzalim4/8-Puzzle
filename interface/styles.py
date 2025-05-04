@@ -41,7 +41,7 @@ FONTS = {
 # Tamanhos
 TILE_SIZE = 80
 BOARD_PADDING = 10
-ANIMATION_SPEED = 50  # frames por movimento (maior = mais lento)
+ANIMATION_SPEED = 250  # frames por movimento (maior = mais lento)
 
 def _adjust_color_brightness(hex_color, factor):
     """Ajusta o brilho de uma cor hex.

@@ -12,9 +12,6 @@ def greedy_best_first_search(initial_state: State) -> Tuple[Deque[str], float, i
     A busca gulosa de melhor primeiro usa apenas a heurística para escolher o próximo estado,
     sem considerar o custo do caminho percorrido até o momento.
     
-    A busca gulosa de melhor primeiro usa apenas a heurística para escolher o próximo estado,
-    sem considerar o custo do caminho percorrido até o momento.
-    
     Args:
         initial_state: Estado inicial do puzzle
         

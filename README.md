@@ -1,5 +1,5 @@
 
-# 🧩 Puzzle-8Pe-as
+# 🧩 8-Puzzle
 
 Este projeto implementa a resolução do clássico **8 Puzzle** usando algoritmos como BFS (Busca em Largura).
 

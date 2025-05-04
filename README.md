@@ -73,14 +73,47 @@ pyinstaller --onefile --noconsole --name Puzzle interface.py
 ## 🛠️ Estrutura do Projeto
 
 ```
-Puzzle-8Pe-as/
+8-Puzzle/
+├── algorithms/
+│   ├── astar_search.py            # Algoritmo de busca A*
+│   ├── breadth_first_search.py    # Algoritmo de Busca em Largura (BFS)
+│   ├── greedy_search.py           # Algoritmo de busca Gulosa
+│   └── __init__.py                # Inicialização do pacote algorithms
 │
-├── BFS.py           # Implementação da busca em largura
-├── State.py         # Classe que representa o estado do tabuleiro
-├── main.py          # Ponto de entrada do programa
-├── utils/           # Funções auxiliares
-├── venv/            # Ambiente virtual (não versionado)
-└── README.md        # Este arquivo
+├── benchmark/
+│   └── benchmark.py               # Script para execução e análise de benchmarks
+│   └── data/                      # Provável pasta de entrada/saída de dados
+│
+├── build/Puzzle/
+│   └── Puzzle.exe                 # Executável gerado pela aplicação (via PyInstaller)
+│
+├── dist/
+│   └── Puzzle.exe                 # Versão empacotada do executável
+│
+├── interface/
+│   ├── board_tab.py              # Lógica da interface do tabuleiro
+│   ├── controls.py               # Controle dos botões e ações da interface
+│   ├── styles.py                 # Estilos visuais da interface (cores, fontes, etc.)
+│   ├── textures.py               # Texturas usadas na GUI
+│   ├── ui_setup.py               # Configuração inicial da interface
+│   └── __init__.py               # Inicialização do pacote interface
+│
+├── utils/
+│   ├── priority_queue.py         # Implementação de fila de prioridade (provavelmente usada em A*)
+│   └── state.py                  # Representação dos estados do jogo
+│
+├── venv/                         # Ambiente virtual do Python
+│
+├── build_exe.py                  # Script de build usando PyInstaller
+├── icon.ico                      # Ícone do executável
+├── interface.py                  # Provavelmente ponto de entrada com interface GUI
+├── main.py                       # Entrada principal (pode iniciar interface ou lógica)
+├── Puzzle.spec                   # Arquivo de configuração do PyInstaller
+├── puzzle8.spec                  # Outra configuração possível de build
+├── README.md                     # Documentação do projeto
+├── Relatorio8Puzzle-InteligênciaArtificial.pdf  # Relatório detalhado do projeto
+├── requirements.txt              # Dependências do projeto
+
 ```
 
 ## 📌 Observações

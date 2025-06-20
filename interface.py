@@ -48,6 +48,7 @@ class PuzzleScientificInterface(tk.Tk):
         self.geometry("1200x800")
         self.minsize(1000, 700)
         self.configure(bg=THEME["bg_primary"])
+        self.saved_state = None  # Armazena o estado memorizado
         
         # Estado atual e histórico de estados do puzzle
         self.current_state = np.array([
@@ -336,12 +337,29 @@ class PuzzleScientificInterface(tk.Tk):
         self.results_text.config(state=tk.NORMAL)
         self.results_text.delete(1.0, tk.END)
         self.results_text.config(state=tk.DISABLED)
+
+    def save_current_board(self):
+        """Memoriza o estado atual do tabuleiro."""
+        self.saved_state = self.current_state.copy()
+        messagebox.showinfo("Sucesso", "Tabuleiro memorizado com sucesso!")
+
+    def load_saved_board(self):
+        """Carrega o estado memorizado."""
+        if self.saved_state is None:
+            messagebox.showerror("Erro", "Nenhum tabuleiro foi memorizado!")
+            return
+        
+        if self.is_solving:  # Evita carregar durante uma solução
+            return
+            
+        self.current_state = self.saved_state.copy()
+        self.draw_board()
+        self.clear_results()
     
     def show_error(self, message):
         """Exibe uma mensagem de erro."""
         messagebox.showerror("Erro", message)
         self.is_solving = False
-
 
 if __name__ == "__main__":    
     app = PuzzleScientificInterface()

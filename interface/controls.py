@@ -106,4 +106,29 @@ def create_controls_frame(parent, app):
     app.results_text['yscrollcommand'] = scrollbar.set
     scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
 
+        # --- Botões de Save/Load ---
+    save_load_frame = ttk.Frame(controls_frame, style="TFrame")
+    save_load_frame.pack(fill=tk.X, pady=10)
+    save_load_frame.columnconfigure((0, 1), weight=1)
+
+    # Botão Memorizar
+    app.save_button = ttk.Button(
+        save_load_frame,
+        text="Memorizar Tabuleiro",
+        command=app.save_current_board,
+        style="TButton",
+        width=18
+    )
+    app.save_button.grid(row=0, column=0, padx=5, pady=5, sticky="ew")
+
+    # Botão Carregar
+    app.load_button = ttk.Button(
+        save_load_frame,
+        text="Carregar Tabuleiro",
+        command=app.load_saved_board,
+        style="TButton",
+        width=18
+    )
+    app.load_button.grid(row=0, column=1, padx=5, pady=5, sticky="ew")
+
     return controls_frame # Retorna o frame criado

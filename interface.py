@@ -81,7 +81,8 @@ class PuzzleScientificInterface(tk.Tk):
         self.board_tab = None
         self.board_frame_container = None
         self.board_canvas = None
-        self.algorithm_var = tk.StringVar(value="A*") # <<< Inicialização direta
+        # self.algorithm_var = tk.StringVar(value="A*") # <<< Inicialização direta
+        self.algorithm_var = tk.StringVar(value="A* - Euclidean")  # Ou adicione à lista de opções existente
         self.randomize_button = None
         self.solve_button = None
         self.reset_button = None
@@ -226,17 +227,31 @@ class PuzzleScientificInterface(tk.Tk):
             elif algorithm == "Greedy":
                 algorithm_fn = greedy_best_first_search
                 algorithm_name = "Busca Gulosa"
-            elif algorithm == "A*":  # A*
+            elif algorithm == "A* - Manhattan":
                 algorithm_fn = astar_search
                 algorithm_name = "A* - Manhattan"
-            else:
+            elif algorithm == "A* - ManhattanPenality":
                 algorithm_fn = astar_search
                 algorithm_name = "A* - ManhattanPenality"
+            elif algorithm == "A* - Euclidean":
+                algorithm_fn = astar_search
+                algorithm_name = "A* - Euclidean"
+            else:  # fallback
+                algorithm_fn = astar_search
+                algorithm_name = "A* - Manhattan"
             
             # Executar o algoritmo
-            if algorithm_name == "A* - ManhattanPenality":
+            if algorithm == "A* - Manhattan":
                 start_time = time.time()
-                path, exec_time, expanded_nodes = algorithm_fn(initial_state, "heuristic2")
+                path, exec_time, expanded_nodes = algorithm_fn(initial_state, "manhattan")
+                total_time = time.time() - start_time
+            elif algorithm == "A* - ManhattanPenality":
+                start_time = time.time()
+                path, exec_time, expanded_nodes = algorithm_fn(initial_state, "manhattanPenality")
+                total_time = time.time() - start_time
+            elif algorithm == "A* - Euclidean":
+                start_time = time.time()
+                path, exec_time, expanded_nodes = algorithm_fn(initial_state, "euclidean")
                 total_time = time.time() - start_time
             else:
                 start_time = time.time()

@@ -31,8 +31,9 @@ def create_controls_frame(parent, app):
     algorithms = [
         ("Busca em Largura (BFS)", "BFS"),
         ("Busca Gulosa (Greedy)", "Greedy"),
-        ("A* (A-Star)", "A*"),
-        ("A* (A-Star) - ManhattanPenality", "A* - ManhattanPenality" )
+        ("A* (Manhattan)", "A* - Manhattan"),
+        ("A* (Manhattan + Penalidades)", "A* - ManhattanPenality"),
+        ("A* (Distância Euclidiana)", "A* - Euclidean")
     ]
     
     for text, value in algorithms:

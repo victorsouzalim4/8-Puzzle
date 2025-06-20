@@ -30,6 +30,7 @@ class State:
         self._string_repr = self._calculate_string_repr()
         self.heuristic = self._calculate_heuristic_manhattan()
         self.heuristic2 = self._calculate_heuristic_manhattanPenality()
+        self.heuristic_euclidean = self._calculate_heuristic_euclidean()
         self._hash = hash(self._string_repr)
         
     def _calculate_heuristic_manhattan(self) -> int:
@@ -96,6 +97,21 @@ class State:
                                 linear_conflict_penalty += 2
 
         return manhattan_dist_sum + linear_conflict_penalty
+    
+    def _calculate_heuristic_euclidean(self) -> int:
+        """Calcula a heurística de distância Euclidiana para o estado atual.
+
+        Returns:
+            int: Soma das distâncias Euclidianas de cada peça até sua posição final
+        """
+        euclidean_dist_sum = 0
+
+        for (row, col), value in np.ndenumerate(self.current_state):
+            if value != 0:  # Ignora espaço vazio
+                goal_row, goal_col = self.GOAL_POSITIONS[value]
+                euclidean_dist_sum += np.sqrt((goal_row - row)**2 + (goal_col - col)**2)
+
+        return int(euclidean_dist_sum)  # Convertemos para inteiro
 
     def _calculate_string_repr(self) -> str:
         """Calcula a representação em string do estado atual.

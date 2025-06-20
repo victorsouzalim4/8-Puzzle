@@ -40,10 +40,11 @@ def astar_search(initial_state: State, heuristic = "heuristic") -> Tuple[Deque[s
     g_score: Dict[State, int] = {initial_state: 0}
 
     # Selecionar heuristica desejada
-    if hasattr(initial_state, heuristic):
-        heuristic_attr = heuristic
-    else:
-        heuristic_attr = "heuristic"
+    heuristic_attr = {
+        "manhattan": "heuristic",
+        "manhattanPenality": "heuristic2",
+        "euclidean": "heuristic_euclidean"
+    }.get(heuristic, "heuristic")  # Default para Manhattan se não encontrado
     
     # Adiciona o estado inicial à fila de prioridade com f_score = h_score
     heuristic_value = getattr(initial_state, heuristic_attr)
